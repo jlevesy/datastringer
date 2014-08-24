@@ -1,0 +1,17 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+Vagrant.configure("2") do |config|
+
+  config.vm.box = "dduportal/boot2docker"
+
+  config.vm.provider :virtualbox do |vb|
+
+    config.vm.network "forwarded_port", guest: 5000, host: 5000
+
+    vb.customize ["modifyvm", :id, "--memory", "2014"]
+    vb.customize ["modifyvm", :id, "--cpus", "2"]
+
+  end
+
+end
