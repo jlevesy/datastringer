@@ -17,11 +17,9 @@ We'll try to build and start a docker container using a lightweight VM.
 #### What I need
 
 - Vagrant (>= 1.5)
-- VirtualBox (>=4.3.10)
+- VirtualBox (>= 4.3.10)
 
 #### Then ?
-
-In /platform run:
 
 - vagrant up
 - Go get some coffee
@@ -34,8 +32,6 @@ When you're done with this:
 And if you want to restart datastringer, re-run vagrant up.
 
 #### If I want to update ?
-
-On /platform:
 
 - vagrant destroy
 - vagrant up
@@ -55,7 +51,7 @@ Here, you can build and run directly the datastringer container.
 
 On datastringer dir:
 
-- docker build -t datastringer platform/docker_datastringer (downloads the Internet, twice.)
+- docker build -t datastringer docker_datastringer (downloads the Internet, twice.)
 - docker run -d -p 3000:3000 datastringer
 
 ### Updating ?
