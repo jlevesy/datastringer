@@ -10,7 +10,7 @@
 
 ## How to use this ?
 
-### Windows / OSX
+### Windows / OSX hosts
 
 We'll try to build and start a docker container using a lightweight VM.
 
@@ -39,7 +39,7 @@ And if you want to restart datastringer, re-run vagrant up.
 
 Or you can use vagrant ssh, and manage your docker image.
 
-### *NIX
+### Linux hosts
 
 Here, you can build and run directly the datastringer container.
 

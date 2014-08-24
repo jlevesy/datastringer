@@ -9,8 +9,8 @@ Vagrant.configure("2") do |config|
 
     config.vm.network "forwarded_port", guest: 3000, host: 3000
 
-    vb.customize ["modifyvm", :id, "--memory", "2014"]
-    vb.customize ["modifyvm", :id, "--cpus", "2"]
+    vb.customize ["modifyvm", :id, "--memory", "512"]
+    vb.customize ["modifyvm", :id, "--cpus", "1"]
 
   end
 
