@@ -1,17 +1,9 @@
 var assert = require('assert');
 var utils = require('./utils');
 var stringers = require('./stringers');
+var UseCase = require('./useCase');
 
 var USE_CASE_DESCRIPTORS_FILE = 'stringers_use_cases.json';
-
-function UseCase(parameters, stringer) {
-  this.parameters = parameters;
-  this.stringer = stringer;
-
-  this.execute = function() {
-    stringer.apply(this, parameters);
-  };
-}
 
 function readDescriptors(callback) {
   utils.readAsset(USE_CASE_DESCRIPTORS_FILE, function(err, data) {
