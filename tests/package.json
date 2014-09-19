@@ -1,0 +1,7 @@
+{
+  "dependencies": {
+    "sinon": "*",
+    "rewire": "*",
+    "should": "*"
+  }
+}
