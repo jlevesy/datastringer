@@ -1,12 +1,12 @@
 var assert = require('assert');
-var utils = require('./utils');
+var assets = require('./assets');
 var stringers = require('./stringers');
 var UseCase = require('./useCase');
 
 var USE_CASE_DESCRIPTORS_FILE = 'stringers_use_cases.json';
 
 function readDescriptors(callback) {
-  utils.readAsset(USE_CASE_DESCRIPTORS_FILE, function(err, data) {
+  assets.read(USE_CASE_DESCRIPTORS_FILE, function(err, data) {
     if(!err) {
       assert(data instanceof Array, 'Use cases descriptors must be presented as an array');
     }

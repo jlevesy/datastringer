@@ -4,7 +4,7 @@ var should = require('should'),
     rewire = require('rewire');
 
 // Defining mocks
-var mockUtils = sinon.mock(require('./scripts/lib/utils')),
+var mockAssets = sinon.mock(require('./scripts/lib/assets')),
     mockStringers = sinon.mock(require('./scripts/lib/stringers'));
 
 // Defining constants
@@ -28,16 +28,16 @@ useCases.__set__('USE_CASE_DESCRIPTORS_FILE', USE_CASE_DESCRIPTORS_FILE);
 describe('#readDescriptors', function() {
 
   beforeEach(function() {
-    mockUtils = sinon.mock(require('./scripts/lib/utils'));
+    mockAssets = sinon.mock(require('./scripts/lib/assets'));
   });
 
   afterEach(function() {
-    mockUtils.restore();
+    mockAssets.restore();
   });
 
   it('shouldReadDescriptorsFromAssetsWhenAssetIsProvided', function() {
 
-    mockUtils.expects('readAsset')
+    mockAssets.expects('read')
              .withArgs(USE_CASE_DESCRIPTORS_FILE)
              .once()
              .callsArgWith(1,null, descriptors);
@@ -48,7 +48,7 @@ describe('#readDescriptors', function() {
       should.not.exist(err);
       should.exist(result);
       result.should.be.eql(descriptors);
-      mockUtils.verify();
+      mockAssets.verify();
     });
   });
 
@@ -58,7 +58,7 @@ describe('#readDescriptors', function() {
       code: 'BIM'
     };
 
-    mockUtils.expects('readAsset')
+    mockAssets.expects('read')
              .withArgs(USE_CASE_DESCRIPTORS_FILE)
              .once()
              .callsArgWith(1,error, null);
@@ -69,7 +69,7 @@ describe('#readDescriptors', function() {
       should.not.exist(result);
       should.exist(err);
       error.should.be.eql(err);
-      mockUtils.verify();
+      mockAssets.verify();
     });
   });
 
@@ -77,7 +77,7 @@ describe('#readDescriptors', function() {
     // given
     var bad_descriptor = 'ALLO';
 
-    mockUtils.expects('readAsset')
+    mockAssets.expects('read')
              .callsArgWith(1, null, bad_descriptor);
 
     //useCases.readDescriptors.should.throw('Use cases descriptors must be presented as an array');
