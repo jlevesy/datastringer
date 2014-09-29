@@ -21,6 +21,14 @@ function createDirsIfNeeded(fullPath) {
   }
 }
 
+
+// same as read, but returns a value instead of calling a callback.
+function readSync(assetFileName) {
+  assert(assetFileName, 'please, provide an asset name to read an asset');
+  var fullPath = toAssetPath(assetFileName);
+  return fs.readFileSync(fullPath, 'utf8');
+}
+
 // read the asset named assetFileName and return its content thru the
 // callback. Assumes the asset contains text.
 // callback signature: (err, assetContent)
@@ -46,5 +54,6 @@ function write(assetFileName, assetContent, callback) {
 
 module.exports = {
   read: read,
+  readSync: readSync,
   write: write
 };

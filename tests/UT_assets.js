@@ -101,6 +101,57 @@ describe('read', function() {
   });
 });
 
+describe('readSync', function() {
+
+  beforeEach(function() {
+    mockFs = sinon.mock(require('fs'));
+  });
+
+  afterEach(function() {
+    mockFs.restore();
+  });
+
+  it('shouldReadAssetAndReturnContentWhenItExists', function() {
+    // given
+    var filename = 'toto';
+    var content =  {
+      content: 'blah'
+    };
+
+    var expectedPath = fakeFolderPath + filename;
+
+    mockFs.expects('readFileSync')
+          .once()
+          .withArgs(expectedPath)
+          .returns(content);
+
+    // when
+    var result = assets.readSync(filename);
+
+    // then
+    should(result).exist;
+    result.should.be.eql(content);
+    mockFs.verify();
+  });
+
+  it('shouldForbidEmptyAssetName', function() {
+    // given
+    var filename = '';
+    var exceptionCalled = false;
+
+
+    // when
+    try {
+      assets.readSync(fileName);
+    } catch(e) {
+      exceptionCalled = true;
+    }
+
+    // then
+    exceptionCalled.should.be.ok;
+  });
+});
+
 describe('write', function() {
 
   beforeEach(function() {
