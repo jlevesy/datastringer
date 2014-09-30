@@ -10,6 +10,56 @@ var mockFs = null;
 var fakeFolderPath = '/home/ds/';
 assets.__set__('ASSETS_FOLDER_PATH', fakeFolderPath);
 
+describe('has', function() {
+
+  beforeEach(function() {
+    mockFs = sinon.mock(require('fs'));
+  });
+
+  afterEach(function() {
+    mockFs.restore();
+  });
+
+  it('shouldReturnTheResultOfExpectedFsCall', function() {
+    // given
+    var assetFileName = 'blah.json';
+    var expectedResult = true;
+    mockFs.expects('existsSync')
+          .once()
+          .withArgs(fakeFolderPath + assetFileName)
+          .returns(expectedResult);
+
+    // when
+    var result = assets.has(assetFileName);
+
+    // then
+    should(result).exist;
+    result.should.be.eql(expectedResult);
+    mockFs.verify();
+  });
+
+  it('shouldForbidEmptyAssetsName', function() {
+    // given
+    var assetFileName = '';
+    var exceptionCalled = false;
+
+    mockFs.expects('existsSync')
+          .never();
+
+    // when
+    try {
+      assets.has(assetFileName);
+    } catch(e) {
+      exceptionCalled = true;
+    }
+
+    // then
+    exceptionCalled.should.be.ok;
+    mockFs.verify();
+  });
+
+});
+
 describe('read', function() {
 
   beforeEach(function() {

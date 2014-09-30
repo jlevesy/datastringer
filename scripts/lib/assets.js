@@ -21,10 +21,16 @@ function createDirsIfNeeded(fullPath) {
   }
 }
 
+// Tells if DS has the given asset. Return true if yes
+function has(assetFileName) {
+  assert(assetFileName, 'please, provide an asset file name');
+  var fullPath = toAssetPath(assetFileName);
+  return fs.existsSync(fullPath); // <- not deprecated, but almost...
+}
 
 // same as read, but returns a value instead of calling a callback.
 function readSync(assetFileName) {
-  assert(assetFileName, 'please, provide an asset name to read an asset');
+  assert(assetFileName, 'please, provide an asset file name to read an asset');
   var fullPath = toAssetPath(assetFileName);
   return fs.readFileSync(fullPath, 'utf8');
 }
@@ -53,6 +59,7 @@ function write(assetFileName, assetContent, callback) {
 }
 
 module.exports = {
+  has: has,
   read: read,
   readSync: readSync,
   write: write
