@@ -18,7 +18,7 @@ function load(descriptor, callback) {
   assert(typeof(descriptor.stringer) === 'string', 'descriptor must provide a string stringer name');
   assert(descriptor.parameters instanceof Array, 'descriptor must provide an Array of Parameters');
   stringers.loadOne(descriptor.stringer, function(err, stringer) {
-    callback(err, err == null ? new UseCase(descriptor.parameters, stringer) : null);
+    callback(err, err === null ? new UseCase(descriptor.parameters, stringer) : null);
   });
 }
 

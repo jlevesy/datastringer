@@ -1,11 +1,10 @@
 var nm = require("nodemailer");
 var assets = require('./assets.js');
 var mailerSetup = require('./mailer-setup');
-var t = nm.createTransport();
+var t = null;
+var user = null;
 
-function reloadSetup(callback) {
-
-}
+var EMAIL_SETUP_ASSET = 'user-email.json';
 
 function sendAlert(stringerName, alertContent) {
   assets.read('user-email.json', function(err, data) {
@@ -22,10 +21,8 @@ function sendAlert(stringerName, alertContent) {
       }
     });
   });
-
 }
 
 module.exports = {
   sendAlert: sendAlert,
-  reloadSetup: reloadSetup,
 };

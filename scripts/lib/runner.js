@@ -21,20 +21,20 @@ function transformToJobs(descriptors) {
   });
 }
 
-function run(startCallback, endCallback) {
+function run(onStartCallback, onEndCallback) {
   useCases.readDescriptors(function(err, descriptors) {
     if(err) {
-      startCallback(err);
+      onStartCallback(err);
       return;
     }
 
     var jobs = transformToJobs(descriptors);
 
     async.parallelLimit(jobs, MAX_JOBS, function(err) {
-      endCallback(err);
+      onEndCallback(err);
     });
 
-    startCallback(null,'OK');
+    onStartCallback(null,'OK');
   });
 }
 
