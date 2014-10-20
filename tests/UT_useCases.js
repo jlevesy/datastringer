@@ -11,16 +11,9 @@ var mockAssets = sinon.mock(require('./scripts/lib/assets')),
 
 var USE_CASE_DESCRIPTORS_FILE = 'fake';
 
-var descriptors = [
-  {
-    "stringer": "grootStringer",
-    "parameters": ["I", "AM", "GROOT"]
-  },
-  {
-    "stringer": "obiwanStringer",
-    "parameters": ["USE", "THE", "FORCE"]
-  }
-];
+var descriptors_as_string = '[{"stringer": "grootStringer","parameters": ["I", "AM", "GROOT"]},{"stringer": "obiwanStringer","parameters": ["USE", "THE", "FORCE"]}]';
+var descriptors = JSON.parse(descriptors_as_string);
+
 // Building Tested object
 var useCases = rewire('./scripts/lib/useCases');
 useCases.__set__('USE_CASE_DESCRIPTORS_FILE', USE_CASE_DESCRIPTORS_FILE);
@@ -40,7 +33,7 @@ describe('#readDescriptors', function() {
     mockAssets.expects('read')
              .withArgs(USE_CASE_DESCRIPTORS_FILE)
              .once()
-             .callsArgWith(1,null, descriptors);
+             .callsArgWith(1,null, descriptors_as_string);
 
     // when
     useCases.readDescriptors(function(err, result) {
@@ -90,7 +83,6 @@ describe('#readDescriptors', function() {
       useCases.readDescriptors(null);
     } catch(e) {
       exceptionCalled = true;
-      e.message.should.be.eql('Use cases descriptors must be presented as an array');
     }
 
     exceptionCalled.should.be.ok;

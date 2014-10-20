@@ -1,5 +1,6 @@
 
-var STRINGERS_DIRECTORY = process.env.DS_STRINGERS_DIRECTORY;
+var STRINGERS_DIRECTORY = process.env.DS_STRINGERS_DIRECTORY ? process.env.DS_STRINGERS_DIRECTORY : process.env.PWD + '/scripts/stringers';
+
 
 function loadOne(stringerName, callback) {
   var err = null;

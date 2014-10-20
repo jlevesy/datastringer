@@ -1,8 +1,6 @@
 var nm = require("nodemailer");
 var assets = require('./assets.js');
-var mailerSetup = require('./mailer-setup');
-var t = null;
-var user = null;
+var t = nm.createTransport();
 
 var EMAIL_SETUP_ASSET = 'user-email.json';
 

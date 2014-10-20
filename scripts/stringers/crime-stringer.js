@@ -1,14 +1,14 @@
 //todo: mettre le mois dans le triggerResult
 var sync = require('synchronize');
-var content = require('./scripts/lib/content');
-var assets = require('./scripts/lib/assets');
+var content = require('../lib/content');
+var assets = require('../lib/assets');
 
 function stringer(lat, lng, numberOfMonths, threshold, callback) {
 
   sync.fiber(function() {
     // get last update date, so that we know where to start from.
     var dateJson = sync.await(content.getTheJSON(
-      "content://data.police.uk/api/crime-last-updated", sync.defer()));
+      "http://data.police.uk/api/crime-last-updated", sync.defer()));
 
     var currentDate = new Date(JSON.parse(dateJson).date);
 
@@ -25,12 +25,12 @@ function stringer(lat, lng, numberOfMonths, threshold, callback) {
       return;
     }
 
-    assets.writeAsset('crime-stringer-reference/lastUpdate.json', JSON.stringify(currentDate),
+    assets.write('crime-stringer-reference/lastUpdate.json', JSON.stringify(currentDate),
     function(err) {
       console.log(err);
     });
 
-    var baseQuery = "content://data.police.uk/api/crimes-street/all-crime?lat=" +
+    var baseQuery = "http://data.police.uk/api/crimes-street/all-crime?lat=" +
       lat + "&lng=" + lng;
 
     // query crime stats for each month

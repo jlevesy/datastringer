@@ -1,8 +1,8 @@
 var fs = require('fs');
 var sync = require('synchronize');
 var diff = require('lodash.difference');
-var assets = require('./scripts/lib/assets.js');
-var getTheJSON = require('./scripts/lib/contenRR).getTheJSON;
+var assets = require('../lib/assets.js');
+var getTheJSON = require('../lib/content').getTheJSON;
 
 function stringer(force, neighbourhood, triggerAlert) {
   var remoteData = {people: [], events: [], priorities:[]};
